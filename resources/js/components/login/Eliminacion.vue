@@ -5,18 +5,31 @@
       <v-flex xs12 md3>
         <v-card >
           <v-card-text>
-              <h3 class="headline mb-0 text-md-center">Eliminar usuario</h3>
-              <v-form  @submit.prevent="EliminarUsuario">
+              <h3 class="headline mb-0 text-md-center">Registro de Laboratorios</h3>
+              <v-form  @submit.prevent="registrarAmbiente">
+                 <v-text-field
+                v-model="form.nombre"
+                label="Laboratorio"
+                required
+                ></v-text-field>
+                <span class="red--text" v-if="errors.nombre">{{errors.nombre[0]}}</span>
                 <!--Consulto a la tabla carrera mediante un select-->
-                <v-select :items="users" 
-                item-text="id" 
-                item-value="id" 
+                <v-select :items="carreras" 
+                item-text="nombre" 
+                item-value="codigo" 
                 single-line
-                v-model="form.id"
-                label="id"></v-select>
+                v-model="form.direccion"
+                label="Carrera"></v-select>
+               <!--Consulto a la tabla color mediante un select-->
+                <v-select :items="colors" 
+                item-text="nombre" 
+                item-value="codigo" 
+                single-line
+                v-model="form.color"
+                label="Color"></v-select>
                 <div class="text-md-center">
                 <!--Envio los datos del formulario-->
-                <v-btn type="submit" color="primary">Eliminar Usuario</v-btn>
+                <v-btn type="submit" color="primary">Registrar Laboratorio</v-btn>
                 </div>
 
             </v-form >
@@ -33,34 +46,55 @@ export default {
     data () {
       return {
         form: {
-            id: null,
+            nombre: null,
+            direccion: null,
+            color: null
         },
-        users:[],
+        errors:{},
+        carreras:[],
+        colors:[]
       }
     },
     created:
       function () {
-        this.getUsuarios();
+        this.getColors();
+        this.getCarreras();
       
     },
     methods:{
-        EliminarUsuario(){
+        registrarAmbiente(){
             console.log(this.form);
             //User.signup(this.form);
-            axios.put('api/usuario/{id}',this.form)
-            this.form = false;
+            axios.post('/api/ambiente',this.form)
+            .then((res) => {
+              this.$router.push({ path: 'lista-ambientes' })  
+            })
+            .catch((error) => {
+              this.errors = error.response.data.errors
+            })
+
         },
-        getUsuarios(){
-          axios.get('/api/usuario')
+        getColors(){
+            axios.get('/api/color')
             .then((res) => {
               console.log(res)
-              this.users=res.data
+              this.colors=res.data
             })
             .catch((error) => {
               console.log(res) 
             })
-
         },
+        getCarreras(){
+            axios.get('/api/carrera')
+            .then((res) => {
+              console.log(res)
+              this.carreras=res.data
+            })
+            .catch((error) => {
+              console.log(res) 
+            })
+        }
+
     }
 }
 </script>

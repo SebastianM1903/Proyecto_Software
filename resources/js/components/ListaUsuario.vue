@@ -19,14 +19,14 @@
                   label="Nombre"
                   required
                 ></v-text-field>
-                </v-flex>
-                 <v-flex xs12>
+             <!--   </v-flex>
+                <v-flex xs12>
                 <v-select :items="usuarios" 
                 item-text="id" 
                 item-value="id"
                 editedItem.id 
                 single-line
-                label="id"></v-select>
+                label="id"></v-select> !-->
         
               </v-flex>
                 <v-flex xs12 sm12 md12>
@@ -109,11 +109,21 @@
         <td>{{moment(props.item.created_at).format('DD-MM-YYYY')}}</td>
         <td class="layout px-0">
           <v-icon
-            small
+            big
             class="mr-2"
             @click="editItem(props.item)"
           >
             edit
+          </v-icon>
+
+          <td>
+          <td class="layout px-0">
+          <v-icon
+            big
+            class="mr-2"
+            @click="deleteItem(props.item)"
+          >
+            delete
           </v-icon>
         </td>
       </template>
@@ -135,7 +145,8 @@
         { text: 'Rol', value: 'rol' },
         { text: 'Estado', value: 'habilitado' },
         { text: 'Ultima Actualizacion', value: 'created_at' },
-        { text: 'Modificación', value: 'name', sortable: false }
+        { text: 'Modificación', value: 'name', sortable: false },
+        { text: 'Eliminación', value: 'name', sortable: false }
       ],
       roles: [
             {
@@ -161,7 +172,6 @@
     created () {
       this.initialize()
       this.getCarreras();
-      this.getUsuarios();
       this.$bus.$emit('cambiarTextoTitulo', 'Lista de Usuarios')
       this.editedItem.password_enabled = false
     },
@@ -188,6 +198,13 @@
         this.editedItem = item
         this.editedItem.password_enabled = false
         this.dialog = true
+      },
+      deleteItem(item){
+
+        this.editedItem = item
+        this.editedItem.password_enabled = false
+        this.dialog = true
+
       },
       registrarUsuario(){
           this.$router.push({ path: 'registrar-usuario' }) 
@@ -221,18 +238,10 @@
             console.log(res) 
           })
       },
-      getUsuarios(){
-
-        axios.get('/api/usuario')
-          .then((res) => {
-            console.log(res)
-            this.users=res.data
-          })
-          .catch((error) => {
-            console.log(res) 
-          })
-
-      }
     }
   }
 </script>
+
+
+
+
