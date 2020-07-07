@@ -75,6 +75,9 @@
       <v-btn color="primary" dark @click="registrarUsuario">
         Nuevo Usuario
       </v-btn>
+      <v-btn color="primary" dark @click="EliminarUsuario">
+        Eliminar usuario
+      </v-btn>
     </v-toolbar>
     <v-data-table
       :headers="headers"
@@ -123,7 +126,7 @@
         { text: 'Rol', value: 'rol' },
         { text: 'Estado', value: 'habilitado' },
         { text: 'Ultima Actualizacion', value: 'created_at' },
-        { text: 'Opciones', value: 'name', sortable: false }
+        { text: 'Modificación', value: 'name', sortable: false }
       ],
       roles: [
             {
@@ -175,6 +178,9 @@
       },
       registrarUsuario(){
           this.$router.push({ path: 'registrar-usuario' }) 
+      },
+      EliminarUsuario(){
+          this.$router.push({ path:  'eliminacion' })
       },
       actualizar(){
 

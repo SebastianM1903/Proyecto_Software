@@ -66,12 +66,6 @@ export default {
             console.log(this.form);
             //User.signup(this.form);
             axios.post('/api/ambiente',this.form)
-            .then((res) => {
-              this.$router.push({ path: 'lista-ambientes' })  
-            })
-            .catch((error) => {
-              this.errors = error.response.data.errors
-            })
 
         },
         getColors(){

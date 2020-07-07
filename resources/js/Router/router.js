@@ -9,6 +9,7 @@ import Calendar from '../components/Calendar';
 import ListaAmbientes from '../components/ListaAmbientes';
 import CrearAmbiente from '../components/CrearAmbiente';
 import ListaUsuario from '../components/ListaUsuario';
+import Eliminacion from '../components/login/Eliminacion';
 
 const routes = [
     { path: '/', component: ListaAmbientes },
@@ -18,6 +19,8 @@ const routes = [
     { path: '/lista-usuarios', component: ListaUsuario },
     { path: '/registrar-usuario', component: Signup },
     { path: '/reserva', component: Calendar },
+    { path: '/eliminacion', component: Eliminacion },
+
     
 ]
 

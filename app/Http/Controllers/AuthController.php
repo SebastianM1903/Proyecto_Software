@@ -117,4 +117,10 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
+    public function destroy($id){
+        $note = Note::find($id);
+        $note->delete();
+    }
+
+
 }

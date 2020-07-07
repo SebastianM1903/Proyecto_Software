@@ -28,6 +28,8 @@ Route::group([
 
 });
 Route::get('/usuario', 'AuthController@getUsers');
+Route::delete('usuario/{id}', 'AuthController@destroy');
+
 Route::get('/reserva/{id_ambiente}/ambiente/{mes}/mes', 'ReservaController@reservasByAmbiente');
 //reservasByAmbiente
 Route::apiResource('/ambiente','AmbienteController');
