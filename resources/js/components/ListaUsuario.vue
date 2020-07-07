@@ -20,6 +20,15 @@
                   required
                 ></v-text-field>
                 </v-flex>
+                 <v-flex xs12>
+                <v-select :items="carreras" 
+                item-text="nombre" 
+                item-value="codigo" 
+                single-line
+                v-model="editedItem.direccion"
+                label="Carrera*"></v-select>
+        
+              </v-flex>
                 <v-flex xs12 sm12 md12>
                   <v-text-field
                   v-model="editedItem.email"
@@ -145,10 +154,12 @@
         email: ''
       },  
       usuarios: [],
+      carreras:[],
     }),
 
     created () {
       this.initialize()
+      this.getCarreras();
       this.$bus.$emit('cambiarTextoTitulo', 'Lista de Usuarios')
       this.editedItem.password_enabled = false
     },
@@ -197,6 +208,16 @@
       },
       cambiarEstadoPassword(){
         this.password_enable = this.editedItem.password_enabled
+      },
+      getCarreras(){
+        axios.get('/api/carrera')
+          .then((res) => {
+            console.log(res)
+            this.carreras=res.data
+          })
+          .catch((error) => {
+            console.log(res) 
+          })
       }
     }
   }

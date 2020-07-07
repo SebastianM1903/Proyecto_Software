@@ -2086,26 +2086,34 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     registrarAmbiente: function registrarAmbiente() {
+      var _this = this;
+
       console.log(this.form); //User.signup(this.form);
 
-      axios.post('/api/ambiente', this.form);
+      axios.post('/api/ambiente', this.form).then(function (res) {
+        _this.$router.push({
+          path: 'lista-ambientes'
+        });
+      }).catch(function (error) {
+        _this.errors = error.response.data.errors;
+      });
     },
     getColors: function getColors() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/api/color').then(function (res) {
         console.log(res);
-        _this.colors = res.data;
+        _this2.colors = res.data;
       }).catch(function (error) {
         console.log(res);
       });
     },
     getCarreras: function getCarreras() {
-      var _this2 = this;
+      var _this3 = this;
 
       axios.get('/api/carrera').then(function (res) {
         console.log(res);
-        _this2.carreras = res.data;
+        _this3.carreras = res.data;
       }).catch(function (error) {
         console.log(res);
       });
@@ -2573,6 +2581,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2613,11 +2630,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         password: ''
       }, "email", ''),
-      usuarios: []
+      usuarios: [],
+      carreras: []
     };
   },
   created: function created() {
     this.initialize();
+    this.getCarreras();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Usuarios');
     this.editedItem.password_enabled = false;
   },
@@ -2674,6 +2693,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     },
     cambiarEstadoPassword: function cambiarEstadoPassword() {
       this.password_enable = this.editedItem.password_enabled;
+    },
+    getCarreras: function getCarreras() {
+      var _this3 = this;
+
+      axios.get('/api/carrera').then(function (res) {
+        console.log(res);
+        _this3.carreras = res.data;
+      }).catch(function (error) {
+        console.log(res);
+      });
     }
   }
 });
@@ -2874,9 +2903,6 @@ __webpack_require__.r(__webpack_exports__);
       }).catch(function (error) {
         console.log(res);
       });
-    },
-    form: function form(item) {
-      this.from = item;
     }
   }
 });
@@ -60156,6 +60182,34 @@ var render = function() {
                                         _vm.$set(_vm.editedItem, "name", $$v)
                                       },
                                       expression: "editedItem.name"
+                                    }
+                                  })
+                                ],
+                                1
+                              ),
+                              _vm._v(" "),
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.carreras,
+                                      "item-text": "nombre",
+                                      "item-value": "codigo",
+                                      "single-line": "",
+                                      label: "Carrera*"
+                                    },
+                                    model: {
+                                      value: _vm.editedItem.direccion,
+                                      callback: function($$v) {
+                                        _vm.$set(
+                                          _vm.editedItem,
+                                          "direccion",
+                                          $$v
+                                        )
+                                      },
+                                      expression: "editedItem.direccion"
                                     }
                                   })
                                 ],
