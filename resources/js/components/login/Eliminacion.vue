@@ -61,11 +61,6 @@ export default {
             })
 
         },
-        form(item){
-          this.from=item
-
-        },
-
     }
 }
 </script>
