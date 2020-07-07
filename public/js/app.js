@@ -2631,12 +2631,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         password: ''
       }, "email", ''),
       usuarios: [],
+      users: [],
       carreras: []
     };
   },
   created: function created() {
     this.initialize();
     this.getCarreras();
+    this.getUsuarios();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Usuarios');
     this.editedItem.password_enabled = false;
   },
@@ -2700,6 +2702,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       axios.get('/api/carrera').then(function (res) {
         console.log(res);
         _this3.carreras = res.data;
+      }).catch(function (error) {
+        console.log(res);
+      });
+    },
+    getUsuarios: function getUsuarios() {
+      var _this4 = this;
+
+      axios.get('/api/usuario').then(function (res) {
+        console.log(res);
+        _this4.users = res.data;
       }).catch(function (error) {
         console.log(res);
       });
@@ -60194,22 +60206,12 @@ var render = function() {
                                 [
                                   _c("v-select", {
                                     attrs: {
-                                      items: _vm.carreras,
-                                      "item-text": "nombre",
-                                      "item-value": "codigo",
+                                      items: _vm.usuarios,
+                                      "item-text": "id",
+                                      "item-value": "id",
+                                      "editedItem.id": "",
                                       "single-line": "",
-                                      label: "Carrera*"
-                                    },
-                                    model: {
-                                      value: _vm.editedItem.direccion,
-                                      callback: function($$v) {
-                                        _vm.$set(
-                                          _vm.editedItem,
-                                          "direccion",
-                                          $$v
-                                        )
-                                      },
-                                      expression: "editedItem.direccion"
+                                      label: "id"
                                     }
                                   })
                                 ],

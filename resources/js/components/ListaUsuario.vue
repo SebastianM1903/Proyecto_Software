@@ -21,12 +21,12 @@
                 ></v-text-field>
                 </v-flex>
                  <v-flex xs12>
-                <v-select :items="carreras" 
-                item-text="nombre" 
-                item-value="codigo" 
+                <v-select :items="usuarios" 
+                item-text="id" 
+                item-value="id"
+                editedItem.id 
                 single-line
-                v-model="editedItem.direccion"
-                label="Carrera*"></v-select>
+                label="id"></v-select>
         
               </v-flex>
                 <v-flex xs12 sm12 md12>
@@ -154,12 +154,14 @@
         email: ''
       },  
       usuarios: [],
+      users: [],
       carreras:[],
     }),
 
     created () {
       this.initialize()
       this.getCarreras();
+      this.getUsuarios();
       this.$bus.$emit('cambiarTextoTitulo', 'Lista de Usuarios')
       this.editedItem.password_enabled = false
     },
@@ -218,6 +220,18 @@
           .catch((error) => {
             console.log(res) 
           })
+      },
+      getUsuarios(){
+
+        axios.get('/api/usuario')
+          .then((res) => {
+            console.log(res)
+            this.users=res.data
+          })
+          .catch((error) => {
+            console.log(res) 
+          })
+
       }
     }
   }
