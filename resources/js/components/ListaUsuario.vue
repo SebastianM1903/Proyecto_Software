@@ -80,12 +80,36 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+    <v-dialog v-model="dialog" max-width="500px">
+        <v-card>
+          <v-card-title>
+            <span class="headline">Eliminar Usuario</span>
+          </v-card-title>
+
+          <v-card-text>
+            <v-container grid-list-md>
+              <v-layout wrap>
+                <v-flex xs12>
+                <v-select :items="usuarios" 
+                item-text="id" 
+                item-value="id"
+                deletedItem.id 
+                single-line
+                label="id"></v-select>
+                </v-flex>
+              </v-layout>
+            </v-container>
+          </v-card-text>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="blue darken-1" flat @click="dialog=false">Cancelar</v-btn>
+            <v-btn color="blue darken-1" flat @click="eliminar(usuarios)">Elimninar</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 <!-- Fin Dialog -->
       <v-btn color="primary" dark @click="registrarUsuario">
         Nuevo Usuario
-      </v-btn>
-      <v-btn color="primary" dark @click="EliminarUsuario">
-        Eliminar usuario
       </v-btn>
     </v-toolbar>
     <v-data-table
@@ -163,7 +187,11 @@
         email: '',
         password: '',
         email: ''
-      },  
+      },
+      deletedItem: {
+        id: ''
+
+      }, 
       usuarios: [],
       users: [],
       carreras:[],
@@ -201,8 +229,8 @@
       },
       deleteItem(item){
 
-        this.editedItem = item
-        this.editedItem.password_enabled = false
+
+        this.deletedItem = item
         this.dialog = true
 
       },
@@ -225,6 +253,13 @@
               this.errors = error.response.data.errors
             })
       },
+      eliminar(){
+        axios.delete(`/api/usuario/${this.usuarios.id}`).then(()=> {
+          this.$emit('delete');
+
+        });
+
+      },
       cambiarEstadoPassword(){
         this.password_enable = this.editedItem.password_enabled
       },
@@ -233,6 +268,17 @@
           .then((res) => {
             console.log(res)
             this.carreras=res.data
+          })
+          .catch((error) => {
+            console.log(res) 
+          })
+      },
+
+      getUsuario(){
+        axios.get('/api/usuario')
+          .then((res) => {
+            console.log(res)
+            this.users=res.data
           })
           .catch((error) => {
             console.log(res) 

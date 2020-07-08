@@ -2600,6 +2600,30 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2644,6 +2668,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         password: ''
       }, "email", ''),
+      deletedItem: {
+        id: ''
+      },
       usuarios: [],
       users: [],
       carreras: []
@@ -2683,6 +2710,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editedItem.password_enabled = false;
       this.dialog = true;
     },
+    deleteItem: function deleteItem(item) {
+      this.deletedItem = item;
+      this.dialog = true;
+    },
     registrarUsuario: function registrarUsuario() {
       this.$router.push({
         path: 'registrar-usuario'
@@ -2706,15 +2737,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.errors = error.response.data.errors;
       });
     },
+    eliminar: function eliminar() {
+      var _this3 = this;
+
+      axios.delete("/api/usuario/".concat(this.usuarios.id)).then(function () {
+        _this3.$emit('delete');
+      });
+    },
     cambiarEstadoPassword: function cambiarEstadoPassword() {
       this.password_enable = this.editedItem.password_enabled;
     },
     getCarreras: function getCarreras() {
-      var _this3 = this;
+      var _this4 = this;
 
       axios.get('/api/carrera').then(function (res) {
         console.log(res);
-        _this3.carreras = res.data;
+        _this4.carreras = res.data;
+      }).catch(function (error) {
+        console.log(res);
+      });
+    },
+    getUsuario: function getUsuario() {
+      var _this5 = this;
+
+      axios.get('/api/usuario').then(function (res) {
+        console.log(res);
+        _this5.users = res.data;
       }).catch(function (error) {
         console.log(res);
       });
@@ -60403,21 +60451,112 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-btn",
+            "v-dialog",
             {
-              attrs: { color: "primary", dark: "" },
-              on: { click: _vm.registrarUsuario }
+              attrs: { "max-width": "500px" },
+              model: {
+                value: _vm.dialog,
+                callback: function($$v) {
+                  _vm.dialog = $$v
+                },
+                expression: "dialog"
+              }
             },
-            [_vm._v("\n        Nuevo Usuario\n      ")]
+            [
+              _c(
+                "v-card",
+                [
+                  _c("v-card-title", [
+                    _c("span", { staticClass: "headline" }, [
+                      _vm._v("Eliminar Usuario")
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-text",
+                    [
+                      _c(
+                        "v-container",
+                        { attrs: { "grid-list-md": "" } },
+                        [
+                          _c(
+                            "v-layout",
+                            { attrs: { wrap: "" } },
+                            [
+                              _c(
+                                "v-flex",
+                                { attrs: { xs12: "" } },
+                                [
+                                  _c("v-select", {
+                                    attrs: {
+                                      items: _vm.usuarios,
+                                      "item-text": "id",
+                                      "item-value": "id",
+                                      "deletedItem.id": "",
+                                      "single-line": "",
+                                      label: "id"
+                                    }
+                                  })
+                                ],
+                                1
+                              )
+                            ],
+                            1
+                          )
+                        ],
+                        1
+                      )
+                    ],
+                    1
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-card-actions",
+                    [
+                      _c("v-spacer"),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "blue darken-1", flat: "" },
+                          on: {
+                            click: function($event) {
+                              _vm.dialog = false
+                            }
+                          }
+                        },
+                        [_vm._v("Cancelar")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "v-btn",
+                        {
+                          attrs: { color: "blue darken-1", flat: "" },
+                          on: {
+                            click: function($event) {
+                              return _vm.eliminar(_vm.usuarios)
+                            }
+                          }
+                        },
+                        [_vm._v("Elimninar")]
+                      )
+                    ],
+                    1
+                  )
+                ],
+                1
+              )
+            ],
+            1
           ),
           _vm._v(" "),
           _c(
             "v-btn",
             {
               attrs: { color: "primary", dark: "" },
-              on: { click: _vm.EliminarUsuario }
+              on: { click: _vm.registrarUsuario }
             },
-            [_vm._v("\n        Eliminar usuario\n      ")]
+            [_vm._v("\n        Nuevo Usuario\n      ")]
           )
         ],
         1
