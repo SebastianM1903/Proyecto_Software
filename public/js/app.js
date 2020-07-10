@@ -2590,40 +2590,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2651,10 +2617,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         text: 'Modificación',
         value: 'name',
         sortable: false
-      }, {
-        text: 'Eliminación',
-        value: 'name',
-        sortable: false
       }],
       roles: [{
         label: 'Usuario',
@@ -2668,9 +2630,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         email: '',
         password: ''
       }, "email", ''),
-      deletedItem: {
-        id: ''
-      },
       usuarios: [],
       users: [],
       carreras: []
@@ -2710,10 +2669,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.editedItem.password_enabled = false;
       this.dialog = true;
     },
-    deleteItem: function deleteItem(item) {
-      this.deletedItem = item;
-      this.dialog = true;
-    },
     registrarUsuario: function registrarUsuario() {
       this.$router.push({
         path: 'registrar-usuario'
@@ -2737,32 +2692,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         _this2.errors = error.response.data.errors;
       });
     },
-    eliminar: function eliminar() {
-      var _this3 = this;
-
-      axios.delete("/api/usuario/".concat(this.usuarios.id)).then(function () {
-        _this3.$emit('delete');
-      });
-    },
     cambiarEstadoPassword: function cambiarEstadoPassword() {
       this.password_enable = this.editedItem.password_enabled;
     },
     getCarreras: function getCarreras() {
-      var _this4 = this;
+      var _this3 = this;
 
       axios.get('/api/carrera').then(function (res) {
         console.log(res);
-        _this4.carreras = res.data;
+        _this3.carreras = res.data;
       }).catch(function (error) {
         console.log(res);
       });
     },
     getUsuario: function getUsuario() {
-      var _this5 = this;
+      var _this4 = this;
 
       axios.get('/api/usuario').then(function (res) {
         console.log(res);
-        _this5.users = res.data;
+        _this4.users = res.data;
       }).catch(function (error) {
         console.log(res);
       });
@@ -2938,68 +2886,57 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       form: {
-        nombre: null,
-        direccion: null,
-        color: null
+        id: null
       },
       errors: {},
-      carreras: [],
-      colors: []
+      users: []
     };
   },
   created: function created() {
-    this.getColors();
-    this.getCarreras();
+    this.initialize();
   },
   methods: {
-    registrarAmbiente: function registrarAmbiente() {
+    initialize: function initialize() {
       var _this = this;
 
-      console.log(this.form); //User.signup(this.form);
+      axios.request({
+        url: "/api/usuario",
+        method: 'get',
+        headers: {
+          'Authorization': "Bearer ".concat(localStorage.getItem('token'))
+        }
+      }).then(function (res) {
+        _this.users = res.data.data;
+        console.log('respuesta', res.data.data);
+      }).catch(function (error) {
+        User.logout();
 
-      axios.post('/api/ambiente', this.form).then(function (res) {
+        _this.$bus.$emit('logged', 'User logged');
+
         _this.$router.push({
           path: 'lista-ambientes'
         });
-      }).catch(function (error) {
-        _this.errors = error.response.data.errors;
       });
     },
-    getColors: function getColors() {
+    EliminarUsuario: function EliminarUsuario() {
       var _this2 = this;
 
-      axios.get('/api/color').then(function (res) {
-        console.log(res);
-        _this2.colors = res.data;
+      axios.request({
+        url: "/api/usuario/".concat(this.form.id),
+        method: "delete",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        _this2.$router.push({
+          path: 'lista-usuarios'
+        });
       }).catch(function (error) {
-        console.log(res);
-      });
-    },
-    getCarreras: function getCarreras() {
-      var _this3 = this;
-
-      axios.get('/api/carrera').then(function (res) {
-        console.log(res);
-        _this3.carreras = res.data;
-      }).catch(function (error) {
-        console.log(res);
+        alert('Error!, no se puede eliminar');
       });
     }
   }
@@ -60451,112 +60388,21 @@ var render = function() {
           ),
           _vm._v(" "),
           _c(
-            "v-dialog",
-            {
-              attrs: { "max-width": "500px" },
-              model: {
-                value: _vm.dialog,
-                callback: function($$v) {
-                  _vm.dialog = $$v
-                },
-                expression: "dialog"
-              }
-            },
-            [
-              _c(
-                "v-card",
-                [
-                  _c("v-card-title", [
-                    _c("span", { staticClass: "headline" }, [
-                      _vm._v("Eliminar Usuario")
-                    ])
-                  ]),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-text",
-                    [
-                      _c(
-                        "v-container",
-                        { attrs: { "grid-list-md": "" } },
-                        [
-                          _c(
-                            "v-layout",
-                            { attrs: { wrap: "" } },
-                            [
-                              _c(
-                                "v-flex",
-                                { attrs: { xs12: "" } },
-                                [
-                                  _c("v-select", {
-                                    attrs: {
-                                      items: _vm.usuarios,
-                                      "item-text": "id",
-                                      "item-value": "id",
-                                      "deletedItem.id": "",
-                                      "single-line": "",
-                                      label: "id"
-                                    }
-                                  })
-                                ],
-                                1
-                              )
-                            ],
-                            1
-                          )
-                        ],
-                        1
-                      )
-                    ],
-                    1
-                  ),
-                  _vm._v(" "),
-                  _c(
-                    "v-card-actions",
-                    [
-                      _c("v-spacer"),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { color: "blue darken-1", flat: "" },
-                          on: {
-                            click: function($event) {
-                              _vm.dialog = false
-                            }
-                          }
-                        },
-                        [_vm._v("Cancelar")]
-                      ),
-                      _vm._v(" "),
-                      _c(
-                        "v-btn",
-                        {
-                          attrs: { color: "blue darken-1", flat: "" },
-                          on: {
-                            click: function($event) {
-                              return _vm.eliminar(_vm.usuarios)
-                            }
-                          }
-                        },
-                        [_vm._v("Elimninar")]
-                      )
-                    ],
-                    1
-                  )
-                ],
-                1
-              )
-            ],
-            1
-          ),
-          _vm._v(" "),
-          _c(
             "v-btn",
             {
               attrs: { color: "primary", dark: "" },
               on: { click: _vm.registrarUsuario }
             },
             [_vm._v("\n        Nuevo Usuario\n      ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "v-btn",
+            {
+              attrs: { color: "primary", dark: "" },
+              on: { click: _vm.EliminarUsuario }
+            },
+            [_vm._v("\n        Eliminar Usuario\n      ")]
           )
         ],
         1
@@ -60630,27 +60476,6 @@ var render = function() {
                         }
                       },
                       [_vm._v("\n            edit\n          ")]
-                    )
-                  ],
-                  1
-                ),
-                _c("td"),
-                _c(
-                  "td",
-                  { staticClass: "layout px-0" },
-                  [
-                    _c(
-                      "v-icon",
-                      {
-                        staticClass: "mr-2",
-                        attrs: { big: "" },
-                        on: {
-                          click: function($event) {
-                            return _vm.deleteItem(props.item)
-                          }
-                        }
-                      },
-                      [_vm._v("\n            delete\n          ")]
                     )
                   ],
                   1
@@ -60916,7 +60741,7 @@ var render = function() {
                       _c(
                         "h3",
                         { staticClass: "headline mb-0 text-md-center" },
-                        [_vm._v("Registro de Laboratorios")]
+                        [_vm._v("Eliminar Usuario")]
                       ),
                       _vm._v(" "),
                       _c(
@@ -60925,59 +60750,25 @@ var render = function() {
                           on: {
                             submit: function($event) {
                               $event.preventDefault()
-                              return _vm.registrarAmbiente($event)
+                              return _vm.EliminarUsuario($event)
                             }
                           }
                         },
                         [
-                          _c("v-text-field", {
-                            attrs: { label: "Laboratorio", required: "" },
-                            model: {
-                              value: _vm.form.nombre,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "nombre", $$v)
-                              },
-                              expression: "form.nombre"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _vm.errors.nombre
-                            ? _c("span", { staticClass: "red--text" }, [
-                                _vm._v(_vm._s(_vm.errors.nombre[0]))
-                              ])
-                            : _vm._e(),
-                          _vm._v(" "),
                           _c("v-select", {
                             attrs: {
-                              items: _vm.carreras,
-                              "item-text": "nombre",
-                              "item-value": "codigo",
+                              items: _vm.users,
+                              "item-text": "name",
+                              "item-value": "id",
                               "single-line": "",
-                              label: "Carrera"
+                              label: "Name"
                             },
                             model: {
-                              value: _vm.form.direccion,
+                              value: _vm.form.id,
                               callback: function($$v) {
-                                _vm.$set(_vm.form, "direccion", $$v)
+                                _vm.$set(_vm.form, "id", $$v)
                               },
-                              expression: "form.direccion"
-                            }
-                          }),
-                          _vm._v(" "),
-                          _c("v-select", {
-                            attrs: {
-                              items: _vm.colors,
-                              "item-text": "nombre",
-                              "item-value": "codigo",
-                              "single-line": "",
-                              label: "Color"
-                            },
-                            model: {
-                              value: _vm.form.color,
-                              callback: function($$v) {
-                                _vm.$set(_vm.form, "color", $$v)
-                              },
-                              expression: "form.color"
+                              expression: "form.id"
                             }
                           }),
                           _vm._v(" "),
@@ -60988,7 +60779,7 @@ var render = function() {
                               _c(
                                 "v-btn",
                                 { attrs: { type: "submit", color: "primary" } },
-                                [_vm._v("Registrar Laboratorio")]
+                                [_vm._v("Eliminar usuario")]
                               )
                             ],
                             1
