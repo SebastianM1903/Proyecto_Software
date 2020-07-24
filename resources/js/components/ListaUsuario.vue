@@ -139,13 +139,18 @@
       ],
       roles: [
             {
-                label: 'Usuario',
-                value: 'usuario'
+                label: 'Secretaria',
+                value: 'secretaria'
             },
             {
                 label: 'Administrador',
                 value: 'administrador'
+            },
+            {
+                label: 'Encargado',
+                value: 'encargado'
             }
+
         ],
       editedItem: {
         name: '',

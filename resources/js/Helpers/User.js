@@ -45,10 +45,19 @@ class User{
         return false
     }
 
-    isUser(){
+    isSecretaria(){
         if(this.loggedIn()){
             let user = AppStorage.getUser();
-            if(user.rol == 'usuario'){
+            if(user.rol == 'secretaria'){
+                return true
+            }
+        }
+        return false
+    }
+    isEncargado(){
+        if(this.loggedIn()){
+            let user = AppStorage.getUser();
+            if(user.rol == 'encargado'){
                 return true
             }
         }

@@ -111,7 +111,7 @@ export default {
     this.getCarreras();
        this.obtenerAmbientes();
        this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios')
-       if(User.isAdministrator()){
+       if(User.isEncargado() || User.isSecretaria()){
           this.loggin = true
       }else{
            this.loggin = false
@@ -177,9 +177,8 @@ export default {
           }
         })
         .then((res) => {
+            this.obtenerAmbientes()
             this.dialogEdit = false
-            success('Ha sido Eliminado Correctamente');
-            this.obtenerAmbientes();
         })
           .catch((error) => {
             this.$emit('borrarEvento', false)

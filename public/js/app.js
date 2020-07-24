@@ -2378,7 +2378,7 @@ __webpack_require__.r(__webpack_exports__);
     this.obtenerAmbientes();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios');
 
-    if (User.isAdministrator()) {
+    if (User.isEncargado() || User.isSecretaria()) {
       this.loggin = true;
     } else {
       this.loggin = false;
@@ -2448,10 +2448,9 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function (res) {
-        _this4.dialogEdit = false;
-        success('Ha sido Eliminado Correctamente');
-
         _this4.obtenerAmbientes();
+
+        _this4.dialogEdit = false;
       }).catch(function (error) {
         _this4.$emit('borrarEvento', false);
       });
@@ -2638,11 +2637,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
-        label: 'Usuario',
-        value: 'usuario'
+        label: 'Secretaria',
+        value: 'secretaria'
       }, {
         label: 'Administrador',
         value: 'administrador'
+      }, {
+        label: 'Encargado',
+        value: 'encargado'
       }],
       editedItem: _defineProperty({
         name: '',
@@ -3168,11 +3170,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       roles: [{
-        label: 'Usuario',
-        value: 'usuario'
-      }, {
         label: 'Administrador',
         value: 'administrador'
+      }, {
+        label: 'Secretaria',
+        value: 'secretaria'
+      }, {
+        label: 'Encargado',
+        value: 'encargado'
       }],
       form: {
         name: null,
@@ -105026,12 +105031,25 @@ function () {
       return false;
     }
   }, {
-    key: "isUser",
-    value: function isUser() {
+    key: "isSecretaria",
+    value: function isSecretaria() {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'usuario') {
+        if (user.rol == 'secretaria') {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }, {
+    key: "isEncargado",
+    value: function isEncargado() {
+      if (this.loggedIn()) {
+        var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
+
+        if (user.rol == 'encargado') {
           return true;
         }
       }
