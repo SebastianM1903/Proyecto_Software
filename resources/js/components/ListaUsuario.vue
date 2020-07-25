@@ -139,12 +139,12 @@
       ],
       roles: [
             {
-                label: 'Secretaria',
-                value: 'secretaria'
-            },
-            {
                 label: 'Administrador',
                 value: 'administrador'
+            },
+            {
+                label: 'Secretaria',
+                value: 'secretaria'
             },
             {
                 label: 'Encargado',

@@ -2637,11 +2637,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
-        label: 'Secretaria',
-        value: 'secretaria'
-      }, {
         label: 'Administrador',
         value: 'administrador'
+      }, {
+        label: 'Secretaria',
+        value: 'secretaria'
       }, {
         label: 'Encargado',
         value: 'encargado'
