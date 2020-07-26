@@ -2448,10 +2448,9 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function (res) {
-        _this4.dialogEdit = false;
-        success('Ha sido Eliminado Correctamente');
-
         _this4.obtenerAmbientes();
+
+        _this4.dialogEdit = false;
       }).catch(function (error) {
         _this4.$emit('borrarEvento', false);
       });
@@ -2638,22 +2637,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
-<<<<<<< HEAD
-        label: 'Administrador',
-        value: 'administrador'
-      }, {
-        label: 'Secretaria',
-        value: 'secretaria'
-      }, {
-        label: 'Encargado',
-        value: 'encargado'
-=======
         label: 'Usuario',
         value: 'usuario'
       }, {
         label: 'Administrador',
         value: 'administrador'
->>>>>>> parent of 36c042ea... sebastian -f
       }],
       editedItem: _defineProperty({
         name: '',
@@ -2886,7 +2874,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
 //
 //
 //
