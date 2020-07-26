@@ -2378,7 +2378,7 @@ __webpack_require__.r(__webpack_exports__);
     this.obtenerAmbientes();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios');
 
-    if (User.isEncargado() || User.isSecretaria()) {
+    if (User.isAdministrator()) {
       this.loggin = true;
     } else {
       this.loggin = false;
@@ -2448,9 +2448,10 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function (res) {
-        _this4.obtenerAmbientes();
-
         _this4.dialogEdit = false;
+        success('Ha sido Eliminado Correctamente');
+
+        _this4.obtenerAmbientes();
       }).catch(function (error) {
         _this4.$emit('borrarEvento', false);
       });
@@ -2637,6 +2638,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
+<<<<<<< HEAD
         label: 'Administrador',
         value: 'administrador'
       }, {
@@ -2645,6 +2647,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         label: 'Encargado',
         value: 'encargado'
+=======
+        label: 'Usuario',
+        value: 'usuario'
+      }, {
+        label: 'Administrador',
+        value: 'administrador'
+>>>>>>> parent of 36c042ea... sebastian -f
       }],
       editedItem: _defineProperty({
         name: '',
@@ -3170,14 +3179,11 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       roles: [{
+        label: 'Usuario',
+        value: 'usuario'
+      }, {
         label: 'Administrador',
         value: 'administrador'
-      }, {
-        label: 'Secretaria',
-        value: 'secretaria'
-      }, {
-        label: 'Encargado',
-        value: 'encargado'
       }],
       form: {
         name: null,
@@ -105031,25 +105037,12 @@ function () {
       return false;
     }
   }, {
-    key: "isSecretaria",
-    value: function isSecretaria() {
+    key: "isUser",
+    value: function isUser() {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'secretaria') {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }, {
-    key: "isEncargado",
-    value: function isEncargado() {
-      if (this.loggedIn()) {
-        var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
-
-        if (user.rol == 'encargado') {
+        if (user.rol == 'usuario') {
           return true;
         }
       }

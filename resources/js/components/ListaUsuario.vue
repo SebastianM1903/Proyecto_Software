@@ -139,6 +139,7 @@
       ],
       roles: [
             {
+<<<<<<< HEAD
                 label: 'Administrador',
                 value: 'administrador'
             },
@@ -149,8 +150,15 @@
             {
                 label: 'Encargado',
                 value: 'encargado'
+=======
+                label: 'Usuario',
+                value: 'usuario'
+            },
+            {
+                label: 'Administrador',
+                value: 'administrador'
+>>>>>>> parent of 36c042ea... sebastian -f
             }
-
         ],
       editedItem: {
         name: '',

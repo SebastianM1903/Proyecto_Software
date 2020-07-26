@@ -52,16 +52,12 @@ export default {
       return {
         roles: [
             {
+                label: 'Usuario',
+                value: 'usuario'
+            },
+            {
                 label: 'Administrador',
                 value: 'administrador'
-            },
-            {
-                label: 'Secretaria',
-                value: 'secretaria'
-            },
-            {
-                label: 'Encargado',
-                value: 'encargado'
             }
         ],  
         form: {
