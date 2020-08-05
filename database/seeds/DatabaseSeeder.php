@@ -15,15 +15,15 @@ class DatabaseSeeder extends Seeder
     {
         DB::table('users')->insert([
             'name' => 'Sebastian Cerpa',
-            'email' => 'sebastian@gmail.com',
+            'email' => 'seb@gmail.com',
             'password' => bcrypt('sc261897'),
-            'rol' => 'administrador',
+            'rol' => 'secretario/a',
         ]);
         DB::table('users')->insert([
             'name' => 'Sebastian F',
             'email' => 's@gmail.com',
             'password' => bcrypt('123'),
-            'rol' => 'administrador',
+            'rol' => 'secretario/a',
         ]);
 
         $this->call(ColorSeeder::class);

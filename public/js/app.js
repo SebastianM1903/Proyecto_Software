@@ -2640,9 +2640,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: 'Usuario',
         value: 'usuario'
       }, {
-        label: 'Administrador',
-        value: 'administrador'
-      }],
+        label: 'Secretario/a',
+        value: 'secretario/a'
+      },{
+      label: 'Encargado/a',
+      value: 'encargado/a'
+    }],
       editedItem: _defineProperty({
         name: '',
         email: '',
@@ -2842,12 +2845,23 @@ __webpack_require__.r(__webpack_exports__);
       this.usuario = User.nameUser();
 
       if (this.usuario) {
-        if (this.usuario.rol === 'administrador') {
+        if (this.usuario.rol === 'secretario/a') {
           this.menu.listaUsuario = true;
           this.menu.listaAmbientes = true;
           this.menu.ingresar = false;
           this.menu.salir = true;
         } else {
+          this.menu.listaUsuario = false;
+          this.menu.listaAmbientes = true;
+          this.menu.ingresar = false;
+          this.menu.salir = true;
+        }
+        if(this.usuario.rol === 'encargado/a'){
+          this.menu.listaUsuario = false;
+          this.menu.listaAmbientes = true;
+          this.menu.ingresar = false;
+          this.menu.salir = true;
+        } else{
           this.menu.listaUsuario = false;
           this.menu.listaAmbientes = true;
           this.menu.ingresar = false;
@@ -2859,6 +2873,10 @@ __webpack_require__.r(__webpack_exports__);
         this.menu.ingresar = true;
         this.menu.salir = false;
       }
+
+
+
+
     }
   }
 });
@@ -3169,9 +3187,17 @@ __webpack_require__.r(__webpack_exports__);
         label: 'Usuario',
         value: 'usuario'
       }, {
-        label: 'Administrador',
-        value: 'administrador'
-      }],
+        label: 'Secretario/a',
+        value: 'secretario/a'
+      },
+
+      {
+        label: 'Encargado/a',
+        value: 'encargado/a'
+      }
+
+
+    ],
       form: {
         name: null,
         email: null,
@@ -105016,7 +105042,7 @@ function () {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'administrador') {
+        if (user.rol == 'secretario/a' || user.rol == 'encargado/a') {
           return true;
         }
       }

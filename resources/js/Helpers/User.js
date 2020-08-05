@@ -38,7 +38,7 @@ class User{
     isAdministrator(){
         if(this.loggedIn()){
             let user = AppStorage.getUser();
-            if(user.rol == 'administrador'){
+            if(user.rol == 'secretario/a' || user.rol == 'encargado/a'){
                 return true
             }
         }

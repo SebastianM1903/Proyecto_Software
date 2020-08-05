@@ -143,9 +143,14 @@
                 value: 'usuario'
             },
             {
-                label: 'Administrador',
-                value: 'administrador'
+                label: 'Secretario/a',
+                value: 'secretario/a'
+            },
+            {
+                label: 'Encargado',
+                value: 'encargado/a'
             }
+
         ],
       editedItem: {
         name: '',
