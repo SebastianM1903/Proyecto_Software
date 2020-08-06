@@ -36,18 +36,5 @@ class ColorSeeder extends Seeder
             'codigo' => 'black',
             'nombre' => 'Negro',
         ]);
-
-        DB::table('colors')->insert([
-            'codigo' => 'orange',
-            'nombre' => 'Naranjo',
-        ]);
-        DB::table('colors')->insert([
-            'codigo' => 'purple',
-            'nombre' => 'Morado',
-        ]);
-        DB::table('colors')->insert([
-            'codigo' => 'pink',
-            'nombre' => 'Rosado',
-        ]);
     }
 }

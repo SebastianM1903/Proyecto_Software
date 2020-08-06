@@ -119,23 +119,8 @@ class AuthController extends Controller
     }
     public function destroy($id)
     {
-        $destroy = User::destroy($id);
-        if ($destroy){
-            $data=[
-                'status'=>'1',
-                'msg'=>'success'
-            ];
-        
-        }else{
-        
-            $data=[
-                'status'=>'0',
-                'msg'=>'fail'
-            ];
-        
-        }
-
-        return response()->json($data, 200); 
+        $note = Note::find($id);
+        $note->delete();
     }
 
 
