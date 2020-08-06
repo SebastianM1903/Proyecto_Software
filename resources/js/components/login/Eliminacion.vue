@@ -13,7 +13,7 @@
                 item-value="id" 
                 single-line
                 v-model="form.id"
-                label="Name"></v-select>
+                label="Nombre"></v-select>
                 <div class="text-md-center"> 
                 <!--Envio los datos del formulario--> 
                 <v-btn type="submit" color="primary">Eliminar usuario</v-btn>

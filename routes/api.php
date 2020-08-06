@@ -28,7 +28,7 @@ Route::group([
 
 });
 Route::get('/usuario', 'AuthController@getUsers');
-Route::delete('usuario/{id}', 'AuthController@destroyUser')
+Route::delete('usuario/{id}', 'AuthController@destroy')
                 ->name('usuario.destroy');
 
 Route::get('/reserva/{id_ambiente}/ambiente/{mes}/mes', 'ReservaController@reservasByAmbiente');

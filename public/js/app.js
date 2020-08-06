@@ -2357,6 +2357,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2437,16 +2438,34 @@ __webpack_require__.r(__webpack_exports__);
       this.classEditModal.colorFondo = this.editAmbiente.color;
       this.dialogEdit = true;
     },
-    actualizarAmbiente: function actualizarAmbiente() {
+    Eliminar: function Eliminar() {
       var _this4 = this;
+
+      axios.request({
+        url: "/api/ambiente/".concat(this.editAmbiente.id),
+        method: "delete",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        _this4.dialogEdit = false;
+        success('Ha sido Eliminado Correctamente');
+
+        _this4.obtenerAmbientes();
+      }).catch(function (error) {
+        _this4.$emit('borrarEvento', false);
+      });
+    },
+    actualizarAmbiente: function actualizarAmbiente() {
+      var _this5 = this;
 
       axios.put("/api/ambiente/".concat(this.editAmbiente.id), this.editAmbiente).then(function (res) {
         //User.resposeAfterLogin(res)
-        _this4.obtenerAmbientes();
+        _this5.obtenerAmbientes();
 
-        _this4.dialogEdit = false;
+        _this5.dialogEdit = false;
       }).catch(function (error) {
-        _this4.errors = error.response.data.errors;
+        _this5.errors = error.response.data.errors;
       });
     }
   }
@@ -2927,7 +2946,6 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         id: null
       },
-      errors: {},
       users: []
     };
   },
@@ -60147,6 +60165,19 @@ var render = function() {
                   _c(
                     "v-btn",
                     {
+                      attrs: { color: "Red", flat: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.Eliminar()
+                        }
+                      }
+                    },
+                    [_vm._v("Borrar Laboratorio")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
                       attrs: { color: "blue darken-1", flat: "" },
                       on: {
                         click: function($event) {
@@ -60804,7 +60835,7 @@ var render = function() {
                               "item-text": "name",
                               "item-value": "id",
                               "single-line": "",
-                              label: "Name"
+                              label: "Nombre"
                             },
                             model: {
                               value: _vm.form.id,
@@ -105989,8 +106020,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Hunk\Desktop\Proyecto final Software\Proyecto_Software\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Hunk\Desktop\Proyecto final Software\Proyecto_Software\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\Documentos\GitHub\ProyectoFinalSoftware\Proyecto_Software\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\Documentos\GitHub\ProyectoFinalSoftware\Proyecto_Software\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

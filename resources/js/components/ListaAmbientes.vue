@@ -82,6 +82,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+          <v-btn color="Red" flat @click="Eliminar()">Borrar Laboratorio</v-btn>
           <v-btn color="blue darken-1" flat @click="dialogEdit = false">Cerrar</v-btn>
           <v-btn color="blue darken-1" flat @click="actualizarAmbiente()">Guardar</v-btn>
         </v-card-actions>
@@ -166,6 +167,24 @@ export default {
           this.editAmbiente =  ambiente
           this.classEditModal.colorFondo = this.editAmbiente.color
           this.dialogEdit = true
+        },
+        Eliminar(){
+          axios.request({
+          url: `/api/ambiente/${this.editAmbiente.id}`,
+          method: "delete",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        .then((res) => {
+            this.dialogEdit = false
+            success('Ha sido Eliminado Correctamente');
+            this.obtenerAmbientes();
+        })
+          .catch((error) => {
+            this.$emit('borrarEvento', false)
+        })  
+
         },
         actualizarAmbiente(){
           axios.put(`/api/ambiente/${this.editAmbiente.id}`,this.editAmbiente)
