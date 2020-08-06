@@ -83,7 +83,18 @@
         <v-card-actions>
           <v-spacer></v-spacer>
 
-          <v-btn color="red darken-1" flat @click="Eliminar()">Borrar Laboratorio</v-btn>
+        <v-btn @click="deleteDialog = true">Eliminar</v-btn>
+            <v-dialog v-model="deleteDialog" max-width="500px">
+            <v-card>
+               <v-card-title style="font-size:20px">¿Está seguro que desea eliminar el laboratorio?.
+                 Las reservas realizadas anteriormente se perderán y no se podrán recuperar.</v-card-title>
+               <v-card-actions>
+                   <v-spacer></v-spacer>
+                   <v-btn color="red" style="font-size:15px" flat @click.native="deleteDialog = false">No</v-btn>
+                   <v-btn color="green" style="font-size:15px" flat @click.native="Eliminar">Si</v-btn>
+               </v-card-actions>
+           </v-card>
+       </v-dialog>
           <v-btn color="blue darken-1" flat @click="dialogEdit = false">Cerrar</v-btn>
           <v-btn color="blue darken-1" flat @click="actualizarAmbiente()">Guardar</v-btn>
         </v-card-actions>
@@ -99,7 +110,9 @@ export default {
       loggin: false,
       listaAmbientes: null,
       dialogEdit: false,
+      deleteDialog: false,
       editAmbiente: null,
+      
       to: null,
       showDialog:false,
 
