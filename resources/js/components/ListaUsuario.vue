@@ -143,32 +143,8 @@
                 value: 'administrador'
             },
             {
-                label: 'Secretaria',
-                value: 'secretaria'
-            },
-            {
-                label: 'Encargado',
-                value: 'encargado'
-<<<<<<< HEAD
-=======
                 label: 'Usuario',
                 value: 'usuario'
-            },
-            {
-<<<<<<< HEAD
-                label: 'Secretario/a',
-                value: 'secretario/a'
-            },
-            {
-                label: 'Encargado',
-                value: 'encargado/a'
-=======
-                label: 'Administrador',
-                value: 'administrador'
->>>>>>> parent of 36c042ea... sebastian -f
->>>>>>> parent of 221084f8... sebastian -F
-=======
->>>>>>> parent of 1563640d... sebastian -F
             }
 
         ],

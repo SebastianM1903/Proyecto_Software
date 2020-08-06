@@ -52,29 +52,12 @@ export default {
       return {
         roles: [
             {
-<<<<<<< HEAD
-                label: 'Usuario',
-                value: 'usuario'
-            },
-            {
-                label: 'Secretario/a',
-                value: 'secretario/a'
-            },
-            {
-                label: 'Encargado',
-                value: 'encargado/a'
-=======
                 label: 'Administrador',
                 value: 'administrador'
             },
             {
-                label: 'Secretaria',
-                value: 'secretaria'
-            },
-            {
-                label: 'Encargado',
-                value: 'encargado'
->>>>>>> parent of 1563640d... sebastian -F
+                label: 'Usuario',
+                value: 'usuario'
             }
         ],  
         form: {

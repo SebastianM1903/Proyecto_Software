@@ -82,6 +82,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
+
+          <v-btn color="red darken-1" flat @click="Eliminar()">Borrar Laboratorio</v-btn>
           <v-btn color="blue darken-1" flat @click="dialogEdit = false">Cerrar</v-btn>
           <v-btn color="blue darken-1" flat @click="actualizarAmbiente()">Guardar</v-btn>
         </v-card-actions>
@@ -98,6 +100,9 @@ export default {
       listaAmbientes: null,
       dialogEdit: false,
       editAmbiente: null,
+      to: null,
+      showDialog:false,
+
       classEditModal:{
         headline: 'headline',
         colorFondo: 'blue',
@@ -110,7 +115,7 @@ export default {
     this.getCarreras();
        this.obtenerAmbientes();
        this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios')
-       if(User.isEncargado() || User.isSecretaria()){
+       if(User.isAdministrator()){
           this.loggin = true
       }else{
            this.loggin = false
@@ -167,26 +172,6 @@ export default {
           this.classEditModal.colorFondo = this.editAmbiente.color
           this.dialogEdit = true
         },
-<<<<<<< HEAD
-=======
-        Eliminar(){
-          axios.request({
-          url: `/api/ambiente/${this.editAmbiente.id}`,
-          method: "delete",
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`
-          }
-        })
-        .then((res) => {
-            this.obtenerAmbientes()
-            this.dialogEdit = false
-        })
-          .catch((error) => {
-            this.$emit('borrarEvento', false)
-        })  
-
-        },
->>>>>>> parent of 1563640d... sebastian -F
         actualizarAmbiente(){
           axios.put(`/api/ambiente/${this.editAmbiente.id}`,this.editAmbiente)
             .then((res) => {
@@ -197,11 +182,26 @@ export default {
             .catch((error) => {
               this.errors = error.response.data.errors
             })
-        }
-    }
+        },
+
+        Eliminar(){
+
+          axios.request({
+            url: "/api/ambiente/".concat(this.editAmbiente.id),
+            method: "delete",
+            headers: {
+            Authorization: "Bearer ".concat(localStorage.getItem("token"))
+            }
+          })
+          .then((res) => {
+            this.obtenerAmbientes();
+            this.dialogEdit =false;
+
+          })
+            .catch((error) => {
+              alert('Error!, no se puede eliminar');
+          })
+      },
+  }
 }
 </script>
-
-<style>
-
-</style>

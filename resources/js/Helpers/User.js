@@ -38,30 +38,21 @@ class User{
     isAdministrator(){
         if(this.loggedIn()){
             let user = AppStorage.getUser();
-            if(user.rol == 'secretario/a' || user.rol == 'encargado/a'){
+            if(user.rol == 'administrador'){
                 return true
             }
         }
         return false
     }
+    isUser(){
+        if(this.loggedIn()){
+            let user = AppStorage.getUser();
+            if(user.rol == 'usuario'){
+                return true
+            }
+        }
+        return false
 
-    isSecretaria(){
-        if(this.loggedIn()){
-            let user = AppStorage.getUser();
-            if(user.rol == 'secretaria'){
-                return true
-            }
-        }
-        return false
-    }
-    isEncargado(){
-        if(this.loggedIn()){
-            let user = AppStorage.getUser();
-            if(user.rol == 'encargado'){
-                return true
-            }
-        }
-        return false
     }
 }
 

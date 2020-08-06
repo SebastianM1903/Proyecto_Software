@@ -2357,6 +2357,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2364,6 +2366,8 @@ __webpack_require__.r(__webpack_exports__);
       listaAmbientes: null,
       dialogEdit: false,
       editAmbiente: null,
+      to: null,
+      showDialog: false,
       classEditModal: {
         headline: 'headline',
         colorFondo: 'blue',
@@ -2377,7 +2381,7 @@ __webpack_require__.r(__webpack_exports__);
     this.obtenerAmbientes();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios');
 
-    if (User.isEncargado() || User.isSecretaria()) {
+    if (User.isAdministrator()) {
       this.loggin = true;
     } else {
       this.loggin = false;
@@ -2437,26 +2441,6 @@ __webpack_require__.r(__webpack_exports__);
       this.classEditModal.colorFondo = this.editAmbiente.color;
       this.dialogEdit = true;
     },
-<<<<<<< HEAD
-=======
-    Eliminar: function Eliminar() {
-      var _this4 = this;
-
-      axios.request({
-        url: "/api/ambiente/".concat(this.editAmbiente.id),
-        method: "delete",
-        headers: {
-          Authorization: "Bearer ".concat(localStorage.getItem("token"))
-        }
-      }).then(function (res) {
-        _this4.obtenerAmbientes();
-
-        _this4.dialogEdit = false;
-      }).catch(function (error) {
-        _this4.$emit('borrarEvento', false);
-      });
-    },
->>>>>>> parent of 1563640d... sebastian -F
     actualizarAmbiente: function actualizarAmbiente() {
       var _this4 = this;
 
@@ -2467,6 +2451,23 @@ __webpack_require__.r(__webpack_exports__);
         _this4.dialogEdit = false;
       }).catch(function (error) {
         _this4.errors = error.response.data.errors;
+      });
+    },
+    Eliminar: function Eliminar() {
+      var _this5 = this;
+
+      axios.request({
+        url: "/api/ambiente/".concat(this.editAmbiente.id),
+        method: "delete",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        _this5.obtenerAmbientes();
+
+        _this5.dialogEdit = false;
+      }).catch(function (error) {
+        alert('Error!, no se puede eliminar');
       });
     }
   }
@@ -2642,31 +2643,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: 'Administrador',
         value: 'administrador'
       }, {
-        label: 'Secretaria',
-        value: 'secretaria'
-      }, {
-        label: 'Encargado',
-        value: 'encargado'
-<<<<<<< HEAD
-=======
         label: 'Usuario',
         value: 'usuario'
-      }, {
-<<<<<<< HEAD
-        label: 'Secretario/a',
-        value: 'secretario/a'
-      },{
-      label: 'Encargado/a',
-      value: 'encargado/a'
-    }],
-=======
-        label: 'Administrador',
-        value: 'administrador'
->>>>>>> parent of 36c042ea... sebastian -f
-=======
->>>>>>> parent of 1563640d... sebastian -F
       }],
->>>>>>> parent of 221084f8... sebastian -F
       editedItem: _defineProperty({
         name: '',
         email: '',
@@ -2866,23 +2845,12 @@ __webpack_require__.r(__webpack_exports__);
       this.usuario = User.nameUser();
 
       if (this.usuario) {
-        if (this.usuario.rol === 'secretario/a') {
+        if (this.usuario.rol === 'administrador') {
           this.menu.listaUsuario = true;
           this.menu.listaAmbientes = true;
           this.menu.ingresar = false;
           this.menu.salir = true;
         } else {
-          this.menu.listaUsuario = false;
-          this.menu.listaAmbientes = true;
-          this.menu.ingresar = false;
-          this.menu.salir = true;
-        }
-        if(this.usuario.rol === 'encargado/a'){
-          this.menu.listaUsuario = false;
-          this.menu.listaAmbientes = true;
-          this.menu.ingresar = false;
-          this.menu.salir = true;
-        } else{
           this.menu.listaUsuario = false;
           this.menu.listaAmbientes = true;
           this.menu.ingresar = false;
@@ -2894,10 +2862,6 @@ __webpack_require__.r(__webpack_exports__);
         this.menu.ingresar = true;
         this.menu.salir = false;
       }
-
-
-
-
     }
   }
 });
@@ -2949,7 +2913,6 @@ __webpack_require__.r(__webpack_exports__);
       form: {
         id: null
       },
-      errors: {},
       users: []
     };
   },
@@ -3207,32 +3170,12 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       roles: [{
-<<<<<<< HEAD
-        label: 'Usuario',
-        value: 'usuario'
-      }, {
-        label: 'Secretario/a',
-        value: 'secretario/a'
-      },
-
-      {
-        label: 'Encargado/a',
-        value: 'encargado/a'
-      }
-
-
-    ],
-=======
         label: 'Administrador',
         value: 'administrador'
       }, {
-        label: 'Secretaria',
-        value: 'secretaria'
-      }, {
-        label: 'Encargado',
-        value: 'encargado'
+        label: 'Usuario',
+        value: 'usuario'
       }],
->>>>>>> parent of 1563640d... sebastian -F
       form: {
         name: null,
         email: null,
@@ -60181,6 +60124,19 @@ var render = function() {
                   _c(
                     "v-btn",
                     {
+                      attrs: { color: "red darken-1", flat: "" },
+                      on: {
+                        click: function($event) {
+                          return _vm.Eliminar()
+                        }
+                      }
+                    },
+                    [_vm._v("Borrar Laboratorio")]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "v-btn",
+                    {
                       attrs: { color: "blue darken-1", flat: "" },
                       on: {
                         click: function($event) {
@@ -105064,7 +105020,7 @@ function () {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'secretario/a' || user.rol == 'encargado/a') {
+        if (user.rol == 'administrador') {
           return true;
         }
       }
@@ -105072,25 +105028,12 @@ function () {
       return false;
     }
   }, {
-    key: "isSecretaria",
-    value: function isSecretaria() {
+    key: "isUser",
+    value: function isUser() {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'secretaria') {
-          return true;
-        }
-      }
-
-      return false;
-    }
-  }, {
-    key: "isEncargado",
-    value: function isEncargado() {
-      if (this.loggedIn()) {
-        var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
-
-        if (user.rol == 'encargado') {
+        if (user.rol == 'usuario') {
           return true;
         }
       }
@@ -106036,8 +105979,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\Hunk\Desktop\Proyecto final Software\Proyecto_Software\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\Hunk\Desktop\Proyecto final Software\Proyecto_Software\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! F:\Documentos\GitHub\ProyectoFinalSoftware\Proyecto_Software\resources\js\app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! F:\Documentos\GitHub\ProyectoFinalSoftware\Proyecto_Software\resources\sass\app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

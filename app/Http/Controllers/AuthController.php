@@ -117,10 +117,29 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
-    public function destroy($id)
-    {
-        $note = Note::find($id);
-        $note->delete();
+    public function destroy($id){
+
+        $destroy = User::destroy($id);
+        if ($destroy){
+            $data=[
+                'status'=>'1',
+                'msg'=>'success'
+            ];
+        
+        }else{
+        
+            $data=[
+                'status'=>'0',
+                'msg'=>'fail'
+            ];
+        
+        }
+
+        return response()->json($data, 200);
+
+
+
+
     }
 
 

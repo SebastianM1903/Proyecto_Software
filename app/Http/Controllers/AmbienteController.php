@@ -77,6 +77,22 @@ class AmbienteController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $destroy = Ambiente::destroy($id);
+        
+        if ($destroy){
+            $data=[
+                'status'=>'1',
+                'msg'=>'success'
+            ];
+        
+        }else{
+        
+            $data=[
+                'status'=>'0',
+                'msg'=>'fail'
+            ];
+        
+        }
+        return response()->json($data, 200); 
     }
 }
