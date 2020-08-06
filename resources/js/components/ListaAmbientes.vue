@@ -110,7 +110,7 @@ export default {
     this.getCarreras();
        this.obtenerAmbientes();
        this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios')
-       if(User.isAdministrator()){
+       if(User.isEncargado() || User.isSecretaria()){
           this.loggin = true
       }else{
            this.loggin = false
@@ -167,6 +167,26 @@ export default {
           this.classEditModal.colorFondo = this.editAmbiente.color
           this.dialogEdit = true
         },
+<<<<<<< HEAD
+=======
+        Eliminar(){
+          axios.request({
+          url: `/api/ambiente/${this.editAmbiente.id}`,
+          method: "delete",
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          }
+        })
+        .then((res) => {
+            this.obtenerAmbientes()
+            this.dialogEdit = false
+        })
+          .catch((error) => {
+            this.$emit('borrarEvento', false)
+        })  
+
+        },
+>>>>>>> parent of 1563640d... sebastian -F
         actualizarAmbiente(){
           axios.put(`/api/ambiente/${this.editAmbiente.id}`,this.editAmbiente)
             .then((res) => {

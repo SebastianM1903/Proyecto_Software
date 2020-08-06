@@ -2377,7 +2377,7 @@ __webpack_require__.r(__webpack_exports__);
     this.obtenerAmbientes();
     this.$bus.$emit('cambiarTextoTitulo', 'Lista de Laboratorios');
 
-    if (User.isAdministrator()) {
+    if (User.isEncargado() || User.isSecretaria()) {
       this.loggin = true;
     } else {
       this.loggin = false;
@@ -2437,6 +2437,26 @@ __webpack_require__.r(__webpack_exports__);
       this.classEditModal.colorFondo = this.editAmbiente.color;
       this.dialogEdit = true;
     },
+<<<<<<< HEAD
+=======
+    Eliminar: function Eliminar() {
+      var _this4 = this;
+
+      axios.request({
+        url: "/api/ambiente/".concat(this.editAmbiente.id),
+        method: "delete",
+        headers: {
+          Authorization: "Bearer ".concat(localStorage.getItem("token"))
+        }
+      }).then(function (res) {
+        _this4.obtenerAmbientes();
+
+        _this4.dialogEdit = false;
+      }).catch(function (error) {
+        _this4.$emit('borrarEvento', false);
+      });
+    },
+>>>>>>> parent of 1563640d... sebastian -F
     actualizarAmbiente: function actualizarAmbiente() {
       var _this4 = this;
 
@@ -2619,7 +2639,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
-<<<<<<< HEAD
         label: 'Administrador',
         value: 'administrador'
       }, {
@@ -2628,6 +2647,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }, {
         label: 'Encargado',
         value: 'encargado'
+<<<<<<< HEAD
 =======
         label: 'Usuario',
         value: 'usuario'
@@ -2643,6 +2663,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         label: 'Administrador',
         value: 'administrador'
 >>>>>>> parent of 36c042ea... sebastian -f
+=======
+>>>>>>> parent of 1563640d... sebastian -F
       }],
 >>>>>>> parent of 221084f8... sebastian -F
       editedItem: _defineProperty({
@@ -3185,6 +3207,7 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       roles: [{
+<<<<<<< HEAD
         label: 'Usuario',
         value: 'usuario'
       }, {
@@ -3199,6 +3222,17 @@ __webpack_require__.r(__webpack_exports__);
 
 
     ],
+=======
+        label: 'Administrador',
+        value: 'administrador'
+      }, {
+        label: 'Secretaria',
+        value: 'secretaria'
+      }, {
+        label: 'Encargado',
+        value: 'encargado'
+      }],
+>>>>>>> parent of 1563640d... sebastian -F
       form: {
         name: null,
         email: null,
@@ -105038,12 +105072,25 @@ function () {
       return false;
     }
   }, {
-    key: "isUser",
-    value: function isUser() {
+    key: "isSecretaria",
+    value: function isSecretaria() {
       if (this.loggedIn()) {
         var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
 
-        if (user.rol == 'usuario') {
+        if (user.rol == 'secretaria') {
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }, {
+    key: "isEncargado",
+    value: function isEncargado() {
+      if (this.loggedIn()) {
+        var user = _AppStorage__WEBPACK_IMPORTED_MODULE_0__["default"].getUser();
+
+        if (user.rol == 'encargado') {
           return true;
         }
       }
