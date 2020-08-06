@@ -2448,9 +2448,10 @@ __webpack_require__.r(__webpack_exports__);
           Authorization: "Bearer ".concat(localStorage.getItem("token"))
         }
       }).then(function (res) {
-        _this4.obtenerAmbientes();
-
         _this4.dialogEdit = false;
+        success('Ha sido Eliminado Correctamente');
+
+        _this4.obtenerAmbientes();
       }).catch(function (error) {
         _this4.$emit('borrarEvento', false);
       });
@@ -2637,15 +2638,32 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         sortable: false
       }],
       roles: [{
+<<<<<<< HEAD
+        label: 'Administrador',
+        value: 'administrador'
+      }, {
+        label: 'Secretaria',
+        value: 'secretaria'
+      }, {
+        label: 'Encargado',
+        value: 'encargado'
+=======
         label: 'Usuario',
         value: 'usuario'
       }, {
+<<<<<<< HEAD
         label: 'Secretario/a',
         value: 'secretario/a'
       },{
       label: 'Encargado/a',
       value: 'encargado/a'
     }],
+=======
+        label: 'Administrador',
+        value: 'administrador'
+>>>>>>> parent of 36c042ea... sebastian -f
+      }],
+>>>>>>> parent of 221084f8... sebastian -F
       editedItem: _defineProperty({
         name: '',
         email: '',
@@ -2892,6 +2910,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //

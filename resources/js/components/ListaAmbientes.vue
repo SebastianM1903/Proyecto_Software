@@ -177,8 +177,9 @@ export default {
           }
         })
         .then((res) => {
-            this.obtenerAmbientes();
             this.dialogEdit = false
+            success('Ha sido Eliminado Correctamente');
+            this.obtenerAmbientes();
         })
           .catch((error) => {
             this.$emit('borrarEvento', false)
