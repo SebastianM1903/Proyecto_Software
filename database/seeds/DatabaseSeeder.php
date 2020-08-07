@@ -30,6 +30,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('123'),
             'rol' => 'administrador',
         ]);
+        DB::table('users')->insert([
+            'name' => 'Carlos',
+            'email' => 'c@gmail.com',
+            'password' => bcrypt('123'),
+            'rol' => 'administrador',
+        ]);
 
         $this->call(ColorSeeder::class);
         $this->call(CarreraSeeder::class);
